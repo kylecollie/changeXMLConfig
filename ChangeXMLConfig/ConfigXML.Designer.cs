@@ -35,18 +35,21 @@
             // chkOnlineInsp
             // 
             this.chkOnlineInsp.AutoSize = true;
-            this.chkOnlineInsp.Location = new System.Drawing.Point(78, 53);
+            this.chkOnlineInsp.Location = new System.Drawing.Point(52, 34);
+            this.chkOnlineInsp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkOnlineInsp.Name = "chkOnlineInsp";
-            this.chkOnlineInsp.Size = new System.Drawing.Size(158, 24);
+            this.chkOnlineInsp.Size = new System.Drawing.Size(108, 17);
             this.chkOnlineInsp.TabIndex = 0;
             this.chkOnlineInsp.Text = "Online Inspection";
             this.chkOnlineInsp.UseVisualStyleBackColor = true;
+            this.chkOnlineInsp.CheckedChanged += new System.EventHandler(this.chkOnlineInsp_CheckedChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(100, 121);
+            this.btnSave.Location = new System.Drawing.Point(67, 79);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(114, 43);
+            this.btnSave.Size = new System.Drawing.Size(76, 28);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -54,11 +57,12 @@
             // 
             // frmConfigXML
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 244);
+            this.ClientSize = new System.Drawing.Size(217, 159);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chkOnlineInsp);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "frmConfigXML";
             this.Text = "ConfigXML";
             this.Load += new System.EventHandler(this.frmConfigXML_Load);

@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -14,6 +8,7 @@ namespace ChangeXMLConfig
     public partial class frmConfigXML : Form
     {
         List<Config> ConfigList = new List<Config>();
+        XmlDocument XmlDoc = new XmlDocument();
 
         public frmConfigXML()
         {
@@ -23,24 +18,56 @@ namespace ChangeXMLConfig
         private void btnSave_Click(object sender, EventArgs e)
         {
             // save the changed xml file
+            XmlNodeList XmlDocNodes = XmlDoc.DocumentElement.SelectNodes("/config");
+            Boolean save = false;
+            foreach (XmlNode node in XmlDocNodes)
+            {
+                if (node["onlineInspection"].InnerText != ConfigList[0].onlineInsp.ToString())
+                {
+                    node["onlineInspection"].InnerText = ConfigList[0].onlineInsp.ToString();
+                    save = true;
+                }
+            }
+            if (save)
+            {
+                XmlDoc.Save(@"config.xml");
+            }
         }
 
         private void frmConfigXML_Load(object sender, EventArgs e)
         {
-            XmlDocument XmlDoc = new XmlDocument();
-            XmlDoc.Load(@"c:\users\kyle\documents\visual studio 2013\Projects\ChangeXMLConfig\ChangeXMLConfig\config.xml");
-            XmlNodeList XmlDocNodes = XmlDoc.DocumentElement.SelectNodes("/config");
+            try
+            {
+                XmlDoc.Load(@"config.xml");
+                //XmlDoc.Load(@"C:\Users\KTCollie\Source\Repos\changeXMLConfig\ChangeXMLConfig\config.xml");
+                XmlNodeList XmlDocNodes = XmlDoc.DocumentElement.SelectNodes("/config");
 
-            foreach (XmlNode node in XmlDocNodes)
-            {
-                Config obj = new Config(
-                    Convert.ToBoolean(node["onlineInspection"].InnerText)
-                    );
-                ConfigList.Add(obj);
+                foreach (XmlNode node in XmlDocNodes)
+                {
+                    //if (node.e)
+                    //{
+                        Config config = new Config(
+                                        Convert.ToBoolean(node["onlineInspection"].InnerText)
+                                        ); 
+                    //}
+                    ConfigList.Add(config);
+                }
+                foreach (Config cfig in ConfigList)
+                {
+                    chkOnlineInsp.Checked = cfig.onlineInsp;
+                }
             }
-            foreach (Config cfig in ConfigList)
+            catch (Exception ex)
             {
-                chkOnlineInsp.Checked = cfig.onlineInsp;
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void chkOnlineInsp_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (Config cfg in ConfigList)
+            {
+                cfg.onlineInsp = chkOnlineInsp.Checked;
             }
         }
     }
